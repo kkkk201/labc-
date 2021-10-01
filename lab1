@@ -1,0 +1,27 @@
+using System;
+public class A
+{
+    private int a = 3, b = 2;
+    public int C
+    {
+        get { return a*=b; }
+    }
+
+    public int C1
+    {
+        get { return a+b; }
+    }
+
+  
+}
+
+public class Programm
+{
+    public static void Main()
+    {
+        A obj = new A();
+        Console.WriteLine(obj.C);
+        Console.WriteLine(obj.C1);
+
+    }
+}
