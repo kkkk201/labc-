@@ -1,0 +1,85 @@
+using System;
+public class classA
+{
+    float a, b;
+    
+    public classA(float a, float b){
+        this.a = a;
+        this.b = b;
+    }
+
+    public float A{
+        get { return a; } set{}
+    }
+    
+    public float B{
+        get { return b; } set{}
+    }
+    public float C
+    {
+        get { a*=b; return a; }
+    }
+
+    public float C1
+    {
+        get {  return a + b;  }
+    }
+
+
+}
+
+public class classB : classA{
+
+
+    float d;
+
+    public classB(float a, float b, float d) : base(a, b){
+        this.d = d;
+    }
+
+    public classB(): this(5.4F, 12.5F, 1.3F){
+        this.d = 1.3F;
+    }
+
+    public float D{
+        get { return d; }
+    }
+
+    public float C2
+    {
+        get{
+        switch (d)
+        {
+            case 0: System.Console.WriteLine("d = 0"); break;
+            case 1: System.Console.WriteLine("d = 1"); break;
+            default: System.Console.WriteLine("d не равно 0 или 1"); break;
+            }
+            return d;
+        }
+    }
+
+}
+public class Programm
+{
+    public static void Main()
+    {
+        classA objA = new classA(3.8F, 8.1F);
+
+        classB objB = new classB();
+
+        classB objB1 = new classB(5.2F, 3.1F, 1F);
+        
+        Console.WriteLine("objA, a = " + objA.A + " b = " + objA.B);
+
+        Console.WriteLine("objB, a = " + objB.A + " b = " + objB.B + " d = " + objB.D);
+
+        Console.WriteLine("objB1, a = " + objB1.A + " b = " + objB1.B + " d = " + objB1.D);
+   
+         Console.WriteLine("objA, С = " + objA.C + " С1 = " + objA.C1);  
+
+        Console.WriteLine("objB, С = " + objB.C + " С1 = " + objB.C1 + " С2 = " + objB.C2);
+
+        Console.WriteLine("objB1, С = " + objB1.C + " С1 = " + objB1.C1 + " С2 = " + objB1.C2);
+
+    }
+}
