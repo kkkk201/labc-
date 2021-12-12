@@ -1,0 +1,166 @@
+using System;
+public class classA
+{
+    int a, b;
+    
+    public classA(int a, int b){
+        this.a = a;
+        this.b = b;
+    }
+
+    public int A{
+        get { return a; } set{}
+    }
+    
+    public int B{
+        get { return b; } set{}
+    }
+    public float C
+    {
+        get { a*=b; return a; }
+    }
+
+    public float C1
+    {
+        get {  return a + b;  }
+    }
+
+
+}
+
+public class classB : classA{
+
+
+    int d;
+
+    float[] arr;
+
+    float[] arr2 = new float[] {2,1,4,7,3};
+
+    public classB(int a, int b, int d) : base(a, b){
+        
+        this.d = d;
+    }
+
+    public classB(): this(1, 2, 3){
+        
+        this.d = 3;
+    }
+
+     public classB(int a): this(a, 3, 1){
+        
+        this.d = 1;
+
+        arr = new float[A];
+
+        for(int i = 0; i < A; i++){
+
+            arr[i] = C2 * i;
+        }
+
+
+
+
+    }
+   
+    public float[] Arr
+	{
+		get { return arr; }
+	}
+	public float[] Arr2
+	{
+		get { return arr2; }
+	}
+    public float this[int ind]{
+
+        get{ return arr[ind]; }
+        set{ arr[ind] = value; }
+     }
+
+    public float this[short ind]{
+
+        get{ return arr2[ind]; }
+        set{ arr2[ind] = value; }
+     }
+
+    
+
+    
+    public float D{
+        get { return d; }
+    
+    }
+
+    public float C2
+    {
+        get{
+        switch (d)
+        {
+            case 0: d = 1 ; break;
+            
+            default: break;
+            }
+            return d;
+        }
+    }
+
+}
+
+public class classC<T>{
+
+    public static string message = "Good";
+    private T[] array = new T[5];
+    public T this[int ind]{
+        
+        get{ return array[ind];}
+       
+        set{ array[ind] = value;}
+    }
+}
+public class Programm
+{
+    public static void Main()
+    {
+        classB objB = new classB(5);
+
+        classC<string> str_obj = new classC<string>();
+
+        classC<int> int_obj = new classC<int>();
+        
+        List<string> words = new List<string>() { "idea", "work", "job", "boy", "girl" };
+       
+        var rand = new Random();
+
+        System.Console.WriteLine("1 MASSIV...");
+
+        for (int i=0; i < objB.Arr.Length; i++)
+		{
+		    Console.WriteLine(objB[i]);
+		}
+        
+        System.Console.WriteLine("2 MASSIV...");
+
+        for (short i=0; i < objB.Arr2.Length; i++)
+		{
+		    Console.WriteLine(objB[i]);
+		}
+
+        System.Console.WriteLine("3 MASSIV RANDOM NUMBERS...");
+
+        for (int i=0; i < 5; i++)
+		{
+		    int_obj[i] = rand.Next(1, 10);
+            Console.WriteLine(int_obj[i]);
+		}
+
+         System.Console.WriteLine("4 MASSIV STRINGS...");
+
+        for (int i=0; i < 5; i++)
+		{
+		    str_obj[i] = "Good " + words[i];
+
+            Console.WriteLine(str_obj[i]);
+		}
+
+    }
+}
