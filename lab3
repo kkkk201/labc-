@@ -1,0 +1,95 @@
+using System;
+public class classA
+{
+    int a, b;
+    
+    public classA(int a, int b){
+        this.a = a;
+        this.b = b;
+    }
+
+    public int A{
+        get { return a; } set{}
+    }
+    
+    public int B{
+        get { return b; } set{}
+    }
+    public float C
+    {
+        get { a*=b; return a; }
+    }
+
+    public float C1
+    {
+        get {  return a + b;  }
+    }
+
+
+}
+
+public class classB : classA{
+
+
+    int d;
+
+    float[] arr;
+
+    public classB(int a, int b, int d) : base(a, b){
+        
+        this.d = d;
+    }
+
+    public classB(): this(1, 2, 3){
+        
+        this.d = 3;
+    }
+
+     public classB(int a): this(a, 3, 1){
+        
+        this.d = 1;
+
+        arr = new float[A];
+
+        for(int i = 0; i < A; i++){
+
+            arr[i] = C2 * i;
+        }
+
+
+
+
+    }
+
+    public float[] Arr{
+
+        get{ return arr; }
+    }
+    public float D{
+        get { return d; }
+    }
+
+    public float C2
+    {
+        get{
+        switch (d)
+        {
+            case 0: System.Console.WriteLine("d = 0"); break;
+            case 1: System.Console.WriteLine("d = 1"); break;
+            default: System.Console.WriteLine("d не равно 0 или 1"); break;
+            }
+            return d;
+        }
+    }
+
+}
+public class Programm
+{
+    public static void Main()
+    {
+        classB objB = new classB(5);
+
+        foreach(float el in objB.Arr) System.Console.WriteLine(el);
+
+    }
+}
