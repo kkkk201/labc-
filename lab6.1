@@ -1,0 +1,234 @@
+using System;
+
+using System.Collections.Generic;
+    
+    
+    public interface IComparable<T> {
+
+        int CompareTo(T a);
+
+    }
+    
+    
+    public class People : IComparable<People> {
+        public enum Type { Student, Teacher , Businessman, Undefined}
+        string secName;
+        public string SecName {
+            
+            get{ return secName;}
+            
+            set{ secName = value;}
+        }
+        int year;
+
+        public int Year {
+            
+            get{ return year;}
+            
+            set{ year = value;}
+        }
+        public Type type = Type.Undefined;
+        
+        public int CompareTo(People obj)
+    {
+        People p = obj as People;
+        
+        return this.Year.CompareTo(p.Year);
+    }
+
+        public virtual void Info() {
+        
+            Console.WriteLine(year);
+        }
+        public void printValues() {
+
+            System.Console.WriteLine( "Second name: " + this.secName);
+            
+            System.Console.WriteLine( "Year of birthday: ");
+            
+            this.Info();
+            
+            System.Console.WriteLine( "Status: " + this.type);
+           
+
+        }
+        public People() {
+
+            this.secName = "Undefined";
+
+            this.year = 0;
+
+            this.type = Type.Undefined;
+
+        }
+
+        public People( string secName, int year, Type type) {
+
+            this.secName = secName;
+
+            this.year = year;
+
+            this.type = type;
+
+
+        }
+
+    }
+    
+
+public class Student : People {
+    
+    int math, phys, hist;
+    public int Math{
+        
+        get{ return math;}
+
+        set{ this.math = value;}
+    }
+    public int Phys{
+        
+        get{ return phys;}
+
+        set{ this.phys = value;}
+    }
+    public int Hist{
+        
+        get{ return hist;}
+
+        set{ this.hist = value;}
+    }
+    
+    public void Avg() {
+
+        float avg = (Math + Hist + Phys)/3;
+
+        System.Console.WriteLine("Средняя оценка за сессию: " + avg );
+
+    }
+    public new virtual void Info() {
+        
+        int max = 0;
+
+        if(Math > Phys) max = Math;
+        if(Phys > Hist) max = Phys;
+        if(Hist > Math) max = Hist;
+
+        System.Console.WriteLine("Максимальная оценка: " + max);
+    }
+        public new void printValues() {
+
+            System.Console.WriteLine( "Second name: " + base.SecName);
+            
+            System.Console.WriteLine( "Year of birthday: "+ base.Year);
+            
+            System.Console.WriteLine( "Status: " + base.type);
+
+            System.Console.WriteLine( "Оценка по математике: " + this.Math);
+
+            System.Console.WriteLine( "Оценка по физике: " + this.Phys);
+
+            System.Console.WriteLine( "Оценка по истории: " + this.Hist);
+           
+            this.Info();
+            
+            Avg();
+        }
+
+
+        public Student( string secName, int year, Type type, int math, int hist, int phys) : base( secName, year, type) {
+
+            this.Math = math;
+
+            this.Phys = phys;
+
+            this.Hist = hist;
+
+
+        }
+
+    }
+
+
+    class PeopleComparer : IComparer<People>  {
+       public int Compare(People x, People y)
+    {
+        if (x.SecName[0]> y.SecName[0])
+            return 1;
+        else if (x.SecName[0] < y.SecName[0])
+            return -1;
+        else
+            return 0;
+    }
+
+
+   }
+
+public class Programm {
+
+    public static void Main() {
+
+       
+
+        People p1 = new People();
+
+        Student p2 = new Student( "Atroshchenko", 2004, Student.Type.Student, 6, 8, 5);
+       
+        People p3 = new People( "Tinkov", 1970, People.Type.Businessman);
+
+        People p4 = new People( "Sidorov", 1990, People.Type.Teacher);
+
+        People p5 = new People( "Mask", 1969, People.Type.Businessman);
+
+        People[] peoples = new People[] { p1, p2, p3, p4, p5};
+
+        Array.Sort(peoples, new PeopleComparer());
+
+        for( int i = 0; i < peoples.Length; i++) {
+            
+            peoples[i].printValues();
+
+            System.Console.WriteLine("------------------");
+        }
+
+        
+
+
+
+        
+
+        
+        for( int i = 0; i < peoples.Length - 1; i++ ) {
+
+        if(peoples[i].Year == 0 || peoples[i + 1].Year == 0) {
+
+            System.Console.WriteLine(peoples[i].SecName + " и " + peoples[i + 1].SecName + " невозможно сравнить,\nтак как у одного(двух) из участников сравнения\n неопределен год рождения или участник неопределен полностью!!!!! ");   
+            
+            }
+
+        else {
+        
+            if(peoples[i].CompareTo(peoples[i + 1]) < 0)
+            
+            System.Console.WriteLine(peoples[i].SecName + " старше " + peoples[i + 1].SecName);
+
+            else
+        
+            if (peoples[i].CompareTo(peoples[i + 1]) > 0)
+
+            System.Console.WriteLine(peoples[i].SecName + " младше " + peoples[i + 1].SecName);
+
+            else
+
+            System.Console.WriteLine(peoples[i].SecName +  peoples[i + 1].SecName + "одного возраста");    
+
+    
+
+        }
+        }
+
+
+   
+
+
+    }
+}
